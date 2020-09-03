@@ -16,5 +16,7 @@ module.exports = {
     contentTip: 'Please enter the message content',
     submit: 'Submit'
   },
-  test_url: serverUrl + 'test_url/'
+  list_blog: serverUrl + 'list_blog/',
+  up_blog: serverUrl + 'up_blog/',
+  show_blog: serverUrl + 'show_blog/?id='
 }

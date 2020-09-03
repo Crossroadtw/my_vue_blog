@@ -78,7 +78,7 @@
             <td class="name_style">
               <h4 @click="showBlogData(item.id_id)" class="a_sty">{{item.name}}</h4>
               <p class="p_sytl">{{item.count}}----------------------------------------------------------------------------------------</p>
-              <span class="date">2019-11-29 20:34:03</span>
+              <span class="date">{{item.data}}</span>
             </td>
           </tr>
           </tbody>
@@ -88,9 +88,8 @@
         <el-pagination
           background
           @current-change="handleCurrentChange"
-          :page-size="100"
           layout="total, prev, pager, next, jumper"
-          :total="1000">
+          :total="num_counr">
         </el-pagination>
       </div>
     </div>
@@ -98,29 +97,43 @@
 </template>
 
 <script>
-import 'markdown-it-vue/dist/markdown-it-vue.css'
-const productList = []
-for (let i = 1; i < 100; i++) {
-  productList.push({
-    name: '第' + i + '瓶奶酪',
-    count: Math.random() * 100,
-    id_id: i
-  })
-}
 export default {
   name: 'main',
   components: {
   },
   data () {
     return {
-      productList, // 所有数据
+      productList: [], // 所有数据
       totalPage: 1, // 统共页数，默认为1
       currentPage: 1, // 当前页数 ，默认为1
       pageSize: 10, // 每页显示数量
-      currentPageData: [] // 当前页显示内容
+      currentPageData: [], // 当前页显示内容
+      num_counr: 0
     }
   },
   methods: {
+    get_blog_list () {
+      const $this = this
+      this.$http({ // 格式a
+        method: 'get',
+        url: this.$serverurl.list_blog
+      }).then(function (res) {
+        $this.num_counr = res.data.count
+        for (let i = 0; i < res.data.count; i++) {
+          $this.productList.push({
+            name: res.data.data[i].name,
+            count: res.data.data[i].count,
+            id_id: res.data.data[i].id_id,
+            data: res.data.data[i].data
+          })
+        }
+        $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
+        $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
+        $this.setCurrentPageData()
+      }).catch(resp => {
+        console.log('请求失败：' + resp.status + ',' + resp.statusText)
+      })
+    },
     handleCurrentChange (val) {
       if (this.currentPage === val) return
       this.currentPage = val
@@ -139,7 +152,7 @@ export default {
       const $this = this
       this.$http({ // 格式a
         method: 'get',
-        url: 'http://127.0.0.1:8000/test/?id=' + blogId
+        url: this.$serverurl.show_blog + blogId
       }).then(function (res) {
         $this.$root.blog_num = res.data
         $this.$router.push({ path: '/home/show' })
@@ -150,11 +163,11 @@ export default {
     }
   },
   mounted: function () {
+    this.get_blog_list()
     // 计算一共有几页
-    this.totalPage = Math.ceil(this.productList.length / this.pageSize)
-    // 计算得0时设置为1
-    this.totalPage = this.totalPage === 0 ? 1 : this.totalPage
-    this.setCurrentPageData()
+    // this.totalPage = Math.ceil(this.productList.length / this.pageSize)
+    // this.totalPage = this.totalPage === 0 ? 1 : this.totalPage
+    // this.setCurrentPageData()
   }
 }
 </script>

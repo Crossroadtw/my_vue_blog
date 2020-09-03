@@ -9,16 +9,16 @@
           <li><span @click="jump('/')" >首页</span></li>
           <li><span @click="jump('/home/about')" >关于</span></li>
           <li><span @click="jump('/home/blog')" >blog</span></li>
-          <li><span @click="jump('/home/show')" >小工具</span></li>
-          <li><span @click="jump('/home/show')" >留言板</span></li>
+          <li><span @click="jump('')" >小工具</span></li>
+          <li><span @click="jump('')" >留言板</span></li>
         </ul>
-        <div class="login-bar full-right">
-          <div class="login-box full-left">
-            <span>登录</span>
-            &nbsp;|&nbsp;
-            <span>注册</span>
-          </div>
-        </div>
+<!--        <div class="login-bar full-right">-->
+<!--          <div class="login-box full-left">-->
+<!--            <span>登录</span>-->
+<!--            &nbsp;|&nbsp;-->
+<!--            <span>注册</span>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
     </div>
   </div>

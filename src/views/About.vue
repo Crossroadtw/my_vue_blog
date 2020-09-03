@@ -2,39 +2,42 @@
   <div class="about">
     <el-row class="main" type="flex" justify="center">
       <el-col :span="16">
-        <h5 class="title"><i class="el-icon-star-on"></i>{{about.aboutMe}}</h5>
+        <h3 class="title"><i class="el-icon-star-on"></i>{{about.aboutMe}}</h3>
         <div class="statement">
-          <div class="item">it技术的探索者</div>
-          <div class="item">座右铭：向上的路并不拥挤，而大多数人选择了安逸。</div>
+          <div class="item">精通C/C++、Python、Vue</div>
+          <div class="item">座右铭：熟悉就是精通，了解就是掌握。</div>
         </div>
         <div class="statement">
-          <div class="item">Email：fengziy@aliyun.com</div>
-          <div class="item">QQ：1224971566</div>
+          <div class="item">Email：tw958658@163.com.com</div>
+          <div class="item">QQ：772959255</div>
           <div class="item">CSDN：
-            <a target="_blank" href="https://blog.csdn.net/feng_zi_ye">https://blog.csdn.net/feng_zi_ye</a>
+            <a target="_blank" href="https://blog.csdn.net/Uchiha_tw">https://blog.csdn.net/Uchiha_tw</a>
+          </div>
+          <div class="item">GitHub：
+            <a target="_blank" href="https://github.com/Crossroadtw">https://github.com/Crossroadtw</a>
           </div>
         </div>
-        <h5 class="title"><i class="el-icon-star-on"></i>{{about.aboutBlog}}</h5>
+        <h3 class="title"><i class="el-icon-star-on"></i>{{about.aboutBlog}}</h3>
         <el-card shadow="always">
           <dl class="dl-blog">
             <dt>{{about.blogSource}}</dt>
             <dd>
-              <a target="_blank" href="https://gitee.com/fengziy/Fblog"><img class="icon" src="../assets/image/1.jpg" alt="码云" /></a>
+              <a target="_blank" href="https://github.com/Crossroadtw"><img class="icon" src="../assets/image/1.jpg" alt="码云" /></a>
             </dd>
             <dt>{{about.technology}}</dt>
-            <dd>Vue、Vue-Router、Element-ui、Vue-i18n</dd>
+            <dd>Vue、Vue组件、Element-ui、Python(各种包)、Django(依赖)、SQL、NoSQL、部署</dd>
             <dt>{{about.other}}</dt>
-            <dd>百度分享、点击爱心特效、复制追加版权信息</dd>
+            <dd>前端刚开始，学习中。。。</dd>
           </dl>
         </el-card>
-        <h5 class="title"><i class="el-icon-star-on"></i>{{about.contactMe}}</h5>
-        <el-card shadow="always">
+        <h3 class="title"><i class="el-icon-star-on" style="margin-left: 15%;"></i>{{about.contactMe}}</h3>
+        <el-card shadow="always" style="width: 70%;margin-left: 15%;">
           <el-form label-position="left" :rules="rules" label-width="80px" ref="formLabelAlign" :model="formLabelAlign">
+            <el-form-item :label=about.email class="name_label" prop="name">
+              <input type="file" @change="getFile($event)" class="file_blog" accept=".md" ref="file" id="file_name">
+            </el-form-item>
             <el-form-item :label=about.yourName prop="name" class="name_label">
               <el-input v-model="formLabelAlign.name"></el-input>
-            </el-form-item>
-            <el-form-item :label=about.email prop="email" class="name_label">
-              <el-input v-model="formLabelAlign.email"></el-input>
             </el-form-item>
             <el-form-item :label=about.content prop="content" class="name_label">
               <el-input type="textarea" v-model="formLabelAlign.content"></el-input>
@@ -56,39 +59,26 @@ export default {
   data () {
     return {
       formLabelAlign: {
-        name: 'ddd',
-        email: 'ddd@qq.com',
-        content: 'ddd'
+        name: '',
+        content: '',
+        file: ''
       },
       about: {
         aboutMe: '关于自己',
         aboutBlog: '关于博客',
-        contactMe: '给我留言',
-        blogSource: '博客开源',
-        technology: '涉及技术',
+        contactMe: '更新博文',
+        blogSource: '博客开源git',
+        technology: '博客涉及技术',
         other: '其他',
-        yourName: '称谓',
-        email: '邮箱',
-        content: '留言内容',
-        submit: '提交留言'
+        yourName: '上传密码',
+        email: '文件',
+        content: '文件介绍',
+        submit: '提交笔记'
       },
       rules: {
         name: [{
-          required: true,
-          message: '请输入您的称谓',
-          trigger: 'blur'
+          required: true
         }],
-        email: [{
-          required: true,
-          message: '请输入您的邮箱',
-          trigger: 'blur'
-        },
-        {
-          type: 'email',
-          message: '请输入正确的邮箱地址',
-          trigger: ['blur', 'change']
-        }
-        ],
         content: [{
           required: true,
           message: '请输入留言内容',
@@ -98,26 +88,29 @@ export default {
     }
   },
   methods: {
+    getFile (event) {
+      // this.file = event.target.files[0]
+      this.formLabelAlign.file = event.target.files[0]
+    },
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$http({
-            method: 'get',
-            url: this.$serverurl.test_url,
-            data: {
-              name: 'xiaoming',
-              info: '12'
-            }
-          }).then(res => {
-            if (res.status === 200) {
-              this.formLabelAlign.name = 'asdfghjk'
-            }
-          }).catch(error => {
-            alert(error)
-          })
-        } else {
-          return false
+      var formData = new FormData()
+      formData.append('key', this.formLabelAlign.name)
+      formData.append('info_data', this.formLabelAlign.content)
+      formData.append('file', this.formLabelAlign.file)
+      this.$http({
+        method: 'post',
+        url: this.$serverurl.up_blog,
+        headers: { 'Content-Type': 'multipart/form-data' },
+        data: formData
+      }).then(res => {
+        if (res.status === 200) {
+          this.formLabelAlign.name = ''
+          this.formLabelAlign.content = ''
+          var a = document.getElementById('file_name')
+          a.value = ''
         }
+      }).catch(error => {
+        alert(error)
       })
     }
   }
@@ -125,8 +118,16 @@ export default {
 </script>
 
 <style>
+  .file_blog {
+    float: left;
+    width: 100%;
+    color: #0c0c0c;
+    text-decoration: none;
+    font-size: 15px;
+    margin-top: 10px;
+  }
   .name_label .el-textarea__inner {
-    line-height: 3;
+    line-height: 2;
   }
   .el-form-item__content {
     text-align:center;
