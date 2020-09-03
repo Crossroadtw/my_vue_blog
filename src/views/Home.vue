@@ -1,18 +1,38 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!--  <div class="home">-->
+  <div class="home" :style="leftBg">
+    <Header></Header>
+    <router-view class="home_sty"></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 export default {
-  name: 'Home',
+  name: 'home',
+  data () {
+    return {
+      leftBg: {
+        // background: '#235d8b url(' + 'http://192.168.10.32/static/jkdbn/title/5ef1994a09e2e.jpg' + ') no-repeat scroll 0 bottom',
+        background: '#235d8b url(' + require('../assets/image/1.jpg') + ')',
+        backgroundSize: '100% 100%'
+      }
+    }
+  },
   components: {
-    HelloWorld
+    Header,
+    Footer
   }
 }
 </script>
+<style>
+  .home_sty {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+</style>
