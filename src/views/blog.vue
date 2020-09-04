@@ -131,7 +131,10 @@ export default {
         $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
         $this.setCurrentPageData()
       }).catch(resp => {
-        console.log('请求失败：' + resp.status + ',' + resp.statusText)
+        this.$message({
+          message: '请求失败：' + resp.status + ',' + resp.statusText,
+          type: 'warning'
+        })
       })
     },
     handleCurrentChange (val) {
@@ -175,6 +178,7 @@ export default {
 <style>
   .left_flag {
     width: 24%;
+    position: relative;
   }
   .date {
     position: relative;

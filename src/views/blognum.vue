@@ -1,8 +1,8 @@
 <template>
-  <div class="main" style="height: 100px;">
-    <div>
-      <el-container>
-        <el-aside width="200px">
+  <div class="main">
+    <div class="left_flag">
+      <el-container class="left_flag">
+        <el-aside class="left_flag" style="width: 100%;">
           <el-menu
             :default-active="$route.path"
             class="el-menu-vertical-demo"
@@ -99,6 +99,9 @@ export default {
 </script>
 
 <style scoped>
+  .left_flag {
+    width: 24%;
+  }
   .el-container {
     position: fixed;
     left:0.5em;
@@ -130,8 +133,9 @@ export default {
   }
   .mark_styl {
     background-color: rgba(251, 252, 251, 0.8);
-    margin-left:200px;
+    margin-left:25%;
     margin-right:20px;
+    position: relative;
   }
 
 </style>

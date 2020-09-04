@@ -6,11 +6,11 @@
           <!--          <router-link to="/"><img @click="jump('/')" src="../assets/image/1.jpg" alt=""></router-link>-->
         </div>
         <ul class="nav full-left">
-          <li><span @click="jump('/')" >首页</span></li>
-          <li><span @click="jump('/home/about')" >关于</span></li>
-          <li><span @click="jump('/home/blog')" >blog</span></li>
-          <li><span @click="jump('')" >小工具</span></li>
-          <li><span @click="jump('')" >留言板</span></li>
+          <li><el-link @click="jump('/')" :underline="false"><i class="el-icon-s-home"></i>首页</el-link></li>
+          <li><el-link @click="jump('/home/about')" :underline="false"><i class="el-icon-s-custom"></i>关于</el-link></li>
+          <li><el-link @click="jump('/home/blog')" :underline="false"><i class="el-icon-reading"></i>Blog</el-link></li>
+          <li><el-link @click="jump('')" :underline="false"><i class="el-icon-s-grid"></i>小工具</el-link></li>
+          <li><el-link @click="jump('')" :underline="false"><i class="el-icon-s-comment"></i>留言板</el-link></li>
         </ul>
 <!--        <div class="login-bar full-right">-->
 <!--          <div class="login-box full-left">-->
@@ -46,8 +46,13 @@ export default {
 </script>
 
 <style scoped>
+  .el-link.el-link--default {
+    color: #0c0c0c;
+    font-size: 17px;
+  }
   .header-box {
     height: 80px;
+    position: relative;
   }
 
   .header {
@@ -89,6 +94,7 @@ export default {
     font-size: 16px;
     color: #4a4a4a;
     cursor: pointer;
+    list-style:none;
   }
 
   .header .nav li span {

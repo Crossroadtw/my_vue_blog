@@ -1,38 +1,28 @@
 <template>
-<!--  <div class="home">-->
-  <div class="home" :style="leftBg">
-    <Header></Header>
-    <router-view class="home_sty"></router-view>
-    <Footer></Footer>
+  <div class="home">
+    <el-carousel :interval="5000" arrow="always" class="banner_im">
+      <el-carousel-item v-for="item in picture_list" :key="item" class="banner_im">
+        <div><el-image fit="fill" style="width: 100%; height: 100%" :src='item'></el-image></div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-
 export default {
-  name: 'home',
   data () {
     return {
-      leftBg: {
-        // background: '#235d8b url(' + 'http://192.168.10.32/static/jkdbn/title/5ef1994a09e2e.jpg' + ') no-repeat scroll 0 bottom',
-        background: '#235d8b url(' + require('../assets/image/1.jpg') + ')',
-        backgroundSize: '100% 100%'
-      }
+      picture_list: [
+        require('../assets/image/2.jpg'),
+        require('../assets/image/3.jpg'),
+        require('../assets/image/1.jpg')
+      ]
     }
-  },
-  components: {
-    Header,
-    Footer
   }
 }
 </script>
 <style>
-  .home_sty {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
+  .banner_im {
+    min-height: 550px;
   }
 </style>

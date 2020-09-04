@@ -112,22 +112,17 @@ export default {
 <style>
   #lovesBgc{
     position: absolute;
-    /* background-color: bisque; */
-    /* background-image: radial-gradient(#243949,#517fa4); */
-
-    background:linear-gradient(#fff1eb,#ace0f9);
+     background-color: bisque;
+     /*background-image: radial-gradient(#243949,#517fa4);*/
+    /*background:linear-gradient(#fff1eb,#ace0f9);*/
+    background-image: url('../assets/image/1.jpg');
+    backgroundSize:cover;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    position: absolute;
-    width: 100%;
-    height: 100%;
     z-index: 0;
-    overflow: hidden;
-    top:0;
-    left: 0;
     z-index: -1;
   }
   /* biubiubiu小心心 start */

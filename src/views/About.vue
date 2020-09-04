@@ -43,7 +43,7 @@
               <el-input type="textarea" v-model="formLabelAlign.content"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('formLabelAlign')">{{about.submit}}</el-button>
+              <el-button type="primary" @click="submitForm('formLabelAlign')">{{about.submit}}<i class="el-icon-upload el-icon--right"></i></el-button>
             </el-form-item>
           </el-form>
         </el-card>
@@ -110,7 +110,10 @@ export default {
           a.value = ''
         }
       }).catch(error => {
-        alert(error)
+        this.$message({
+          message: error,
+          type: 'warning'
+        })
       })
     }
   }
@@ -125,6 +128,7 @@ export default {
     text-decoration: none;
     font-size: 15px;
     margin-top: 10px;
+    cursor: pointer;
   }
   .name_label .el-textarea__inner {
     line-height: 2;
