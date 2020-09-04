@@ -118,18 +118,25 @@ export default {
         method: 'get',
         url: this.$serverurl.list_blog
       }).then(function (res) {
-        $this.num_counr = res.data.count
-        for (let i = 0; i < res.data.count; i++) {
-          $this.productList.push({
-            name: res.data.data[i].name,
-            count: res.data.data[i].count,
-            id_id: res.data.data[i].id_id,
-            data: res.data.data[i].data
+        if (res.data === 'error') {
+          this.$message({
+            message: '请求失败：' + res.data,
+            type: 'warning'
           })
+        } else {
+          $this.num_counr = res.data.count
+          for (let i = 0; i < res.data.count; i++) {
+            $this.productList.push({
+              name: res.data.data[i].name,
+              count: res.data.data[i].count,
+              id_id: res.data.data[i].id_id,
+              data: res.data.data[i].data
+            })
+          }
+          $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
+          $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
+          $this.setCurrentPageData()
         }
-        $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
-        $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
-        $this.setCurrentPageData()
       }).catch(resp => {
         this.$message({
           message: '请求失败：' + resp.status + ',' + resp.statusText,
@@ -157,8 +164,15 @@ export default {
         method: 'get',
         url: this.$serverurl.show_blog + blogId
       }).then(function (res) {
-        $this.$root.blog_num = res.data
-        $this.$router.push({ path: '/home/show' })
+        if (res.data === 'error') {
+          this.$message({
+            message: '请求失败：' + res.data,
+            type: 'warning'
+          })
+        } else {
+          $this.$root.blog_num = res.data
+          $this.$router.push({ path: '/home/show' })
+        }
         // alert(res.data)
       }).catch(resp => {
         console.log('请求失败：' + resp.status + ',' + resp.statusText)

@@ -103,11 +103,20 @@ export default {
         headers: { 'Content-Type': 'multipart/form-data' },
         data: formData
       }).then(res => {
-        if (res.status === 200) {
+        if (res.data === 'error') {
+          this.$message({
+            message: '请求失败：' + res.data,
+            type: 'warning'
+          })
+        } else {
           this.formLabelAlign.name = ''
           this.formLabelAlign.content = ''
           var a = document.getElementById('file_name')
           a.value = ''
+          this.$message({
+            message: '上传成功',
+            type: 'success'
+          })
         }
       }).catch(error => {
         this.$message({
