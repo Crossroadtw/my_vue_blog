@@ -1,4 +1,4 @@
-const serverUrl = 'http://127.0.0.1:8000/'
+const serverUrl = 'http://124.70.44.128:8080/'
 module.exports = {
   about: {
     aboutMe: 'About Me',

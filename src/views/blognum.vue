@@ -70,21 +70,20 @@
       </el-container>
     </div>
     <div class="mark_styl">
-      <markdown-it-vue :content="content"/>
-      <!--      <vue-markdown>{{ msg }}</vue-markdown>-->
+      <Vmarkdown style="min-height: 550px">{{ content }}</Vmarkdown>
     </div>
 
   </div>
 </template>
 
 <script>
-import MarkdownItVue from 'markdown-it-vue'
+import Vmarkdown from 'vue-markdown'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 
 export default {
   name: 'main',
   components: {
-    MarkdownItVue
+    Vmarkdown
   },
   data () {
     return {

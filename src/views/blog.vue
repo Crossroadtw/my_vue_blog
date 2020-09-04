@@ -77,7 +77,7 @@
           <tr v-for="(item,index) in currentPageData" :key="index">
             <td class="name_style">
               <h4 @click="showBlogData(item.id_id)" class="a_sty">{{item.name}}</h4>
-              <p class="p_sytl">{{item.count}}----------------------------------------------------------------------------------------</p>
+              <p class="p_sytl">{{item.count}}</p>
               <span class="date">{{item.data}}</span>
             </td>
           </tr>

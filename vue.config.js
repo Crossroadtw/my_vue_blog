@@ -5,8 +5,12 @@ module.exports = {
       test: /\.md$/,
       use: [
         {
-          loader: 'vue-loader',
-          loader: 'markdown-loader',
+          loader: 'markdown-loader'
+        },
+        {
+          loader: 'vue-loader'
+        },
+        {
           loader: 'html-loader'
         }
       ]
