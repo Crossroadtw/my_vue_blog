@@ -11,7 +11,6 @@ Vue.use(ElementUI)
 Vue.prototype.$http = axios
 Vue.prototype.$serverurl = serverurl
 Vue.config.productionTip = false
-// let URL = this.$root.URL
 new Vue({
   router,
   store,

@@ -113,16 +113,15 @@ export default {
   #lovesBgc{
     position: absolute;
      background-color: bisque;
-     /*background-image: radial-gradient(#243949,#517fa4);*/
     /*background:linear-gradient(#fff1eb,#ace0f9);*/
-    background-image: url('../assets/image/1.jpg');
-    backgroundSize:cover;
+    background-image: url('../assets/image/4.jpg');
+    background-size:100% 100%;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: 0;
+    /*z-index: 0;*/
     z-index: -1;
   }
   /* biubiubiu小心心 start */

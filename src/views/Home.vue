@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <el-carousel :interval="5000" arrow="always" class="banner_im">
-      <el-carousel-item v-for="item in picture_list" :key="item" class="banner_im">
-        <div><el-image fit="fill" style="width: 100%; height: 100%" :src='item'></el-image></div>
+    <el-carousel height="600px" ref="carousel" @click.native="linkTo">
+      <el-carousel-item class="carousel-item" v-for="item in picture_list" v-bind:key="item.url">
+        <img class="carousel-img" :src="item">
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -18,11 +18,27 @@ export default {
         require('../assets/image/1.jpg')
       ]
     }
+  },
+  methods: {
+    linkTo () {
+      const activeIndex = this.$refs.carousel.activeIndex
+      this.$router.push(this.imgs[activeIndex].link)
+    }
   }
 }
 </script>
 <style>
-  .banner_im {
-    min-height: 550px;
+  .carousel-item {
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+  }
+  .carousel-img {
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100%;
   }
 </style>

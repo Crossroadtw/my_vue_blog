@@ -1,14 +1,14 @@
 <template>
   <div class="footer">
-    <ul>
-      <li>关于我们</li>
+    <ul :underline="false">
+      <li :underline="false">关于我们</li>
       <li>联系我们</li>
       <li>商务合作</li>
       <li>帮助中心</li>
       <li>意见反馈</li>
       <li>新手指南</li>
     </ul>
-    <p>Copyright © luffycity.com版权所有 | 京ICP备17072161号-1</p>
+    <p>Copyright © 124.70.44.128版权所有 | 京ICP无备案号</p>
   </div>
 </template>
 
@@ -21,16 +21,17 @@ export default {
 <style scoped>
   .footer {
     width: 100%;
-    height: 128px;
-    /*background: #25292e;*/
-    /*color: #fff;*/
+    min-height: 128px;
+    height: auto;
+    color: #fff;
     background-color: rgba(0, 0, 0, 0.4)
   }
 
   .footer ul {
     margin: 0 auto 16px;
     padding-top: 38px;
-    width: 810px;
+    width: auto;
+    height: auto;
   }
 
   .footer ul li {

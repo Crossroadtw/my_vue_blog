@@ -1,74 +1,10 @@
 <template>
   <div class="main">
-    <div class="left_flag">
-      <el-container class="left_flag">
-        <el-aside class="left_flag" style="width: 100%;">
-          <el-menu
-            :default-active="$route.path"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-            @select="handleSelect_2"
-            router>
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>问卷管理</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="/main/wenjuanlist">
-                  <i class="el-icon-menu"></i>
-                  问卷设计
-                </el-menu-item>
-                <el-menu-item index="/main/wenjuanlist">
-                  <i class="el-icon-menu"></i>
-                  问卷分配
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>我的问卷</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="/main/RenList">
-                  <i class="el-icon-menu"></i>
-                  自测问卷
-                </el-menu-item>
-                <el-menu-item index="/main/RenLists">
-                  <i class="el-icon-menu"></i>
-                  互评问卷
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-menu-item index="">
-              <i class="el-icon-menu"></i>
-              <span slot="title">问卷设计</span>
-            </el-menu-item>
-            <el-menu-item index="2">
-              <i class="el-icon-menu"></i>
-              <span slot="title"> 人才库</span>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <i class="el-icon-document"></i>
-              <span slot="title">代理招聘</span>
-            </el-menu-item>
-            <el-menu-item index="/main/home">
-              <i class="el-icon-setting"></i>
-              <span slot="title">手机版主页</span>
-            </el-menu-item>
-            <el-menu-item index="5">
-              <i class="el-icon-setting"></i>
-              <span slot="title">企业账户</span>
-            </el-menu-item>
-          </el-menu>
+    <el-container style="width: 24%;height: auto;max-height: 100%">
+        <el-aside style="width: 100%;height: auto;line-height: 100%">
+          分类
         </el-aside>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-      </el-container>
-    </div>
+    </el-container>
     <div class="wrap" style="margin-right: 30px">
       <main>
         <table>
@@ -181,19 +117,11 @@ export default {
   },
   mounted: function () {
     this.get_blog_list()
-    // 计算一共有几页
-    // this.totalPage = Math.ceil(this.productList.length / this.pageSize)
-    // this.totalPage = this.totalPage === 0 ? 1 : this.totalPage
-    // this.setCurrentPageData()
   }
 }
 </script>
 
 <style>
-  .left_flag {
-    width: 24%;
-    position: relative;
-  }
   .date {
     position: relative;
     font-family: "SF Pro Display",Roboto,Noto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
@@ -235,15 +163,9 @@ export default {
   .el-container {
     position: fixed;
     left:0.5em;
-    top:50%;
-    margin-top:-200px;
-  }
-  .el-header, .el-footer {
-    position: fixed;
-    background-color: #409eff;
-    color: #333;
-    text-align: center;
-    line-height: 80px;
+    /*top:50%;*/
+    /*margin-top:-200px;*/
+    margin-top:20px;
   }
 
   .el-aside {
@@ -253,29 +175,15 @@ export default {
     line-height: 200px;
 
   }
-
-  .el-main {
-    background-color: #E9EEF3;
-    position: fixed;
-    color: #333;
-    background-color: rgba(0, 0, 0, 0)
-    /* text-align: center;
-    line-height: 160px; */
-  }
   .wrap {
     background-color: rgba(251, 252, 251, 0.8);
     margin-left: 25%;
     position: relative;
     width: 70%;
+    min-height: 550px;
   }
   .block {
     margin-left: 200px;
     position: relative;
   }
-  .rightPart{
-       height: 100%;
-       width: 100%;
-       overflow-y: scroll;
-  }
-
 </style>

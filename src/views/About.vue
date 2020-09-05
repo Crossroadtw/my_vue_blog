@@ -8,7 +8,7 @@
           <div class="item">座右铭：熟悉就是精通，了解就是掌握。</div>
         </div>
         <div class="statement">
-          <div class="item">Email：tw958658@163.com.com</div>
+          <div class="item">Email：tw958658@163.com</div>
           <div class="item">QQ：772959255</div>
           <div class="item">CSDN：
             <a target="_blank" href="https://blog.csdn.net/Uchiha_tw">https://blog.csdn.net/Uchiha_tw</a>
