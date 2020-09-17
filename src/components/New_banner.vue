@@ -13,7 +13,7 @@
       <el-menu-item index="3" @click="jump('/home/about')"><i class="el-icon-s-custom"></i>关于</el-menu-item>
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-s-grid"></i>小工具</template>
-        <el-menu-item index="2-1">小工具1</el-menu-item>
+        <el-menu-item index="2-1" @click="jump('/chat')">简易聊天室</el-menu-item>
         <el-submenu index="2-4">
           <template slot="title">小工具2</template>
           <el-menu-item index="2-4-1">小工具2-1</el-menu-item>
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     jump (location) {
       localStorage.this_nav = location

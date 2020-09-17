@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
     <el-row class="main" type="flex" justify="center">
       <el-col :span="16">
         <h3 class="title"><i class="el-icon-star-on"></i>{{about.aboutMe}}</h3>
@@ -36,6 +37,24 @@
             <el-form-item :label=about.email class="name_label" prop="name">
               <input type="file" @change="getFile($event)" class="file_blog" accept=".md" ref="file" id="file_name">
             </el-form-item>
+            <el-form-item label="分类" class="name_label" prop="name" style="width: 100%;">
+              <el-autocomplete
+                popper-class="my-autocomplete"
+                v-model="formLabelAlign.label"
+                style="width: 100%;"
+                :fetch-suggestions="querySearch"
+                placeholder="请输入/选择分类"
+                @select="handleSelect">
+                <i
+                  class="el-icon-edit el-input__icon"
+                  slot="suffix"
+                  @click="handleIconClick">
+                </i>
+                <template slot-scope="{ item }">
+                  <div class="name">{{ item }}</div>
+                </template>
+              </el-autocomplete>
+            </el-form-item>
             <el-form-item :label=about.yourName prop="name" class="name_label">
               <el-input v-model="formLabelAlign.name"></el-input>
             </el-form-item>
@@ -58,10 +77,13 @@ export default {
   name: 'about',
   data () {
     return {
+      restaurants: [],
+      state: '',
       formLabelAlign: {
         name: '',
         content: '',
-        file: ''
+        file: '',
+        label: ''
       },
       about: {
         aboutMe: '关于自己',
@@ -87,16 +109,45 @@ export default {
       }
     }
   },
+  mounted: function () {
+    this.get_label()
+  },
   methods: {
     getFile (event) {
       // this.file = event.target.files[0]
       this.formLabelAlign.file = event.target.files[0]
+    },
+    handleSelect (item) {
+      this.formLabelAlign.label = item
+    },
+    handleIconClick (ev) {
+    },
+    createFilter (queryString) {
+      return (restaurant) => {
+        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
+      }
+    },
+    get_label () {
+      const $this = this
+      this.$http({ // 格式a
+        method: 'get',
+        url: this.$serverurl.show_label + '?flag=label'
+      }).then(function (res) {
+        $this.restaurants = res.data.data
+      })
+    },
+    querySearch (queryString, cb) {
+      var restaurants = this.restaurants
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants
+      // 调用 callback 返回建议列表的数据
+      cb(results)
     },
     submitForm (formName) {
       var formData = new FormData()
       formData.append('key', this.formLabelAlign.name)
       formData.append('info_data', this.formLabelAlign.content)
       formData.append('file', this.formLabelAlign.file)
+      formData.append('label', this.formLabelAlign.label)
       this.$http({
         method: 'post',
         url: this.$serverurl.up_blog,
@@ -111,6 +162,7 @@ export default {
         } else {
           this.formLabelAlign.name = ''
           this.formLabelAlign.content = ''
+          this.formLabelAlign.label = ''
           var a = document.getElementById('file_name')
           a.value = ''
           this.$message({

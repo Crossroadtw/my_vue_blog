@@ -16,7 +16,11 @@ module.exports = {
     contentTip: 'Please enter the message content',
     submit: 'Submit'
   },
-  list_blog: serverUrl + 'list_blog/',
-  up_blog: serverUrl + 'up_blog/',
-  show_blog: serverUrl + 'show_blog/?id='
+  list_blog: serverUrl + 'list_blog/', // 博文列表
+  up_blog: serverUrl + 'up_blog/', // 更新博文
+  show_blog: serverUrl + 'show_blog/?id=', // 展示博文
+  show_label: serverUrl + 'label_show/', // 展示标签
+  show_file: serverUrl + 'file_show/', // 展示归档
+  // ws_socket: 'ws://124.70.44.128:8989/ws_co/'
+  ws_socket: 'ws://124.70.44.128:8080/ws_co/' // 及时通讯
 }

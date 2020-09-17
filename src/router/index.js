@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home'
-import blog from '@/views/blog'
-import blogcl from '@/views/blognum'
+import blog from '@/views/Blog'
+import blogcl from '@/views/BlogNum'
 import About from '@/views/About'
+import Chat from '@/views/Chat_Co'
+import Login from '@/views/Login'
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,11 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: Chat
   },
   {
     path: '/home/about',
@@ -31,6 +38,11 @@ const routes = [
     path: '/home/show',
     name: 'show',
     component: blogcl
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 

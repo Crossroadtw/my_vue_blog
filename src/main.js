@@ -7,7 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import axios from 'axios'
 import serverurl from './assets/js/param'
+import VueParticles from 'vue-particles'
 Vue.use(ElementUI)
+Vue.use(VueParticles)
 Vue.prototype.$http = axios
 Vue.prototype.$serverurl = serverurl
 Vue.config.productionTip = false
@@ -16,7 +18,9 @@ new Vue({
   store,
   data: function () {
     return {
-      blog_num: 0
+      blog_num: false,
+      label_data: [],
+      file_data: []
     }
   },
   render: h => h(App)
