@@ -1,10 +1,11 @@
 <template>
-  <div class="main">
+  <div class="Article">
+    <h1>留言互动</h1>
+    <div>
+    <img :src="imgUrl" style="max-width: 90%;max-height: 100%">
+    </div>
     <el-row class="main" type="flex" justify="center">
       <el-col style="max-width: 90%;width: auto;min-width: 66%">
-        <div style="padding: 3% 0">
-        <div class="mark_styl" v-html="compiledMarkdown"></div>
-        </div>
         <el-card class="box-card">
           <div slot="header" class="clearfix" style="text-align: left">
             <span><i class="el-icon-warning-outline" style="color: red"></i>留言说明:<br>建议填写有效的邮箱地址，否则可能不会及时收到回复信息的~</span>
@@ -52,17 +53,17 @@
               </el-col>
               <el-col :span="span_com">
                 <div>
-                  <span style="color: #1abc9c;margin-right: 2%">{{item.user_name}}</span>
-                  <span style="background-color: #ededed;padding: 0 2%;font-size: 12px;margin-right: 2%;color: #2c3e50;white-space: pre-wrap;word-break: break-all;">{{item.user_os}}</span>
-                  <span style="background-color: #ededed;padding: 0 2%;font-size: 12px;margin-right: 2%;color: #2c3e50;white-space: pre-wrap;word-break: break-all;">{{item.user_browser}}</span>
-                  <span style="text-align: right;font-size: 12px;margin-right: 2%;color: #999;white-space: pre-wrap;word-break: break-all;float: right">{{item.cre_time}}</span>
+                <span style="color: #1abc9c;margin-right: 2%">{{item.user_name}}</span>
+                <span style="background-color: #ededed;padding: 0 2%;font-size: 12px;margin-right: 2%;color: #2c3e50;white-space: pre-wrap;word-break: break-all;">{{item.user_os}}</span>
+                <span style="background-color: #ededed;padding: 0 2%;font-size: 12px;margin-right: 2%;color: #2c3e50;white-space: pre-wrap;word-break: break-all;">{{item.user_browser}}</span>
+                <span style="text-align: right;font-size: 12px;margin-right: 2%;color: #999;white-space: pre-wrap;word-break: break-all;float: right">{{item.cre_time}}</span>
                 </div>
                 <br>
                 <div>
                   <span style="color:#2c3e50;">{{item.comment}}</span>
                 </div>
                 <div v-show="login_flag===false">
-                  <!--                <div >-->
+<!--                <div >-->
                   <el-button v-if="item.master===false" style="float: right; padding: 3px 0" type="text" @click="open(item.comment_scode)">回复</el-button>
                   <el-button style="float: right; padding: 3px 0" type="text" @click="delete_com(item.comment_scode)">删除</el-button>
                 </div>
@@ -91,21 +92,18 @@
 </template>
 
 <script>
-import 'markdown-it-vue/dist/markdown-it-vue.css'
-import marked from 'marked'
-import hljs from 'highlight.js'
 import { Message, MessageBox, Loading } from 'element-ui'
 import UA from 'ua-device'
 import Avatar from 'vue-avatar'
 
 export default {
-  name: 'main',
+  name: 'Article',
   components: {
     Avatar
   },
   data () {
     return {
-      content: this.$root.blog_num,
+      imgUrl: require('@/assets/image/s.gif'),
       comment: {
         span_name: '',
         span_ti: '',
@@ -147,7 +145,6 @@ export default {
       formData.append('user_email', this.comment.email)
       formData.append('user_os', output.os.name.split(' ')[0])
       formData.append('user_browser', output.browser.name + output.browser.version.original)
-      formData.append('blog_id', $this.$root.com_data)
       this.$http({
         method: 'post',
         url: this.$serverurl.comment_message,
@@ -181,7 +178,7 @@ export default {
       const $this = this
       this.$http({ // 格式a
         method: 'get',
-        url: this.$serverurl.comment_message + '?page=' + res + '&blog_id=' + $this.$root.com_data
+        url: this.$serverurl.comment_message + '?page=' + res
       }).then(function (res) {
         if (res.data === 'error') {
           Message.warning('请求失败：error')
@@ -224,7 +221,7 @@ export default {
       const $this = this
       this.$http({ // 格式a
         method: 'delete',
-        url: this.$serverurl.reply,
+        url: this.$serverurl.comment_message,
         data: {
           comment_flag: res
         }
@@ -246,13 +243,6 @@ export default {
     }
   },
   computed: {
-    compiledMarkdown: function () {
-      return marked(this.$root.blog_num, {
-        highlight: function (code) {
-          return hljs.highlightAuto(code).value
-        }
-      })
-    }
   },
   mounted: function () {
     if (document.body.clientWidth >= 650) {
@@ -270,43 +260,15 @@ export default {
 </script>
 
 <style>
-  h1 {
-    text-align: center;
-  }
-  code {
-    /*white-space: pre-wrap;*/
-    /*word-break: break-all;*/
-    display: block;
-    height: 100%;
-    position: relative;
-    overflow: auto;
-    padding: 19px 10px 16px 24px;
-    border-radius: 10px;
-    background-color: rgb(229, 227, 226);
-  }
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: left;
-    line-height: 200px;
-
-  }
-
-  .mark_styl {
-    background-color: rgba(251, 252, 251, 0.8);
-    /*margin-left:10%;*/
-    /*margin-right:10px;*/
-    /*width: 74%;*/
-    position: relative;
-    min-height: 450px;
-    padding: 3%;
-    border: 3px solid #95afee;
-    border-radius: 8px;
-    text-align: left;
-  }
   .box-card {
     max-width: 100%;
     width: 100%;
+  }
+  .Article {
+    position: relative;
+    text-align: center;
+    width: auto;
+    max-width: 100%;
   }
   h1 {
     text-align: center;

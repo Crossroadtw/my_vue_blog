@@ -1,8 +1,7 @@
 <template>
   <div class="about">
-    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
     <el-row class="main" type="flex" justify="center">
-      <el-col :span="16">
+      <el-col style="max-width: 85%;width: auto;min-width: 50%">
         <h3 class="title"><i class="el-icon-star-on"></i>{{about.aboutMe}}</h3>
         <div class="statement">
           <div class="item">精通C/C++、Python、Vue</div>
@@ -31,8 +30,8 @@
             <dd>前端刚开始，学习中。。。</dd>
           </dl>
         </el-card>
-        <h3 class="title"><i class="el-icon-star-on" style="margin-left: 15%;"></i>{{about.contactMe}}</h3>
-        <el-card shadow="always" style="width: 70%;margin-left: 15%;">
+        <h3 class="title"><i class="el-icon-star-on"></i>{{about.contactMe}}</h3>
+        <el-card shadow="always">
           <el-form label-position="left" :rules="rules" label-width="80px" ref="formLabelAlign" :model="formLabelAlign">
             <el-form-item :label=about.email class="name_label" prop="name">
               <input type="file" @change="getFile($event)" class="file_blog" accept=".md" ref="file" id="file_name">
@@ -72,6 +71,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 export default {
   // required 属性适用于以下 <input> 类型：text, search, url, telephone, email, password, date pickers, number, checkbox, radio 以及 file。
   name: 'about',
@@ -155,26 +155,17 @@ export default {
         data: formData
       }).then(res => {
         if (res.data === 'error') {
-          this.$message({
-            message: '请求失败：' + res.data,
-            type: 'warning'
-          })
+          Message.warning('请求失败：error')
         } else {
           this.formLabelAlign.name = ''
           this.formLabelAlign.content = ''
           this.formLabelAlign.label = ''
           var a = document.getElementById('file_name')
           a.value = ''
-          this.$message({
-            message: '上传成功',
-            type: 'success'
-          })
+          Message.success('上传成功')
         }
       }).catch(error => {
-        this.$message({
-          message: error,
-          type: 'warning'
-        })
+        Message.error('请求失败：' + error)
       })
     }
   }
@@ -182,6 +173,10 @@ export default {
 </script>
 
 <style>
+  .about {
+    text-align: center;
+  ;
+  }
   .file_blog {
     float: left;
     width: 100%;
@@ -204,7 +199,9 @@ export default {
     background-color: rgba(0, 0, 0, 0)
   }
   .el-card__body {
-    background-color: rgba(193, 149, 149, 0.6)
+    text-align: left;
+    overflow: auto;
+    background-color: rgba(251, 252, 251, 0.5)
   }
   .dl-blog dd {
     margin-left: 30px;
@@ -222,10 +219,12 @@ export default {
   }
 
   .statement {
+    text-align: left;
     border-left: 3px solid #d95a5a;
-    padding: 20px;
+    padding: 2%;
     background-color: #EBEEF5;
-    margin-top: 20px;
-    background-color: rgba(193, 149, 149, 0.6)
+    margin-top: 3%;
+    overflow: auto;
+    background-color: rgba(251, 252, 251, 0.5)
   }
 </style>

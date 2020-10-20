@@ -1,7 +1,7 @@
 <template>
   <div class="main">
-    <el-container style="width: 24%;height: 70%;flex-direction: column;margin-top: 0;overflow: auto">
-        <el-card class="box-card" style="width: 100%;max-height: 50%;overflow: auto">
+    <el-container style="width: 24%;height: 70%;flex-direction: column;margin-top: 0;overflow: auto" v-show="dispa">
+        <el-card class="box-card" style="width: auto;max-height: 50%;overflow: auto;height: auto">
           <div slot="header" class="clearfix">
             <span><i style="color: blue" class="el-icon-collection-tag"></i>文章标签</span>
           </div>
@@ -12,7 +12,7 @@
             </p>
           </div>
         </el-card>
-      <el-card class="box-card" style="width: 100%;max-height: 50%">
+      <el-card class="box-card" style="width: auto;max-height: 50%">
         <div slot="header" class="clearfix">
           <span><i style="color: blue" class="el-icon-s-cooperation"></i>归档记录</span>
         </div>
@@ -24,23 +24,23 @@
         </div>
       </el-card>
     </el-container>
-    <div class="wrap" style="margin-right: 30px">
-      <p @click="get_blog_list()" style="cursor: pointer;">
-        <span @click="doClick(scope.row)" class="link"><i style="color: blue" class="el-icon-reading"></i>显示全部</span>
-      </p>
+    <div :class="[{'wrap':dispa},{'wrap2':dispa===false}]" style="margin-right: 30px">
+      <span @click="get_blog_list()" style="cursor: pointer;margin-left: 3%;">
+        <span @click="doClick(scope.row)" class="link" style="margin-top: 3%"><i style="color: blue;" class="el-icon-reading"></i>显示全部</span>
+      </span>
       <main>
-        <table>
-          <h1 style="text-align:center;margin-top: 30px">文章列表</h1>
-          <tbody>
-          <tr v-for="(item,index) in currentPageData" :key="index">
-            <td class="name_style">
-              <a class="a_sty" @click="showBlogData(item.id_id)"><h4 @click="doClick(scope.row)" class="link">{{item.name}}</h4></a>
-              <p class="p_sytl">{{item.count}}</p>
-              <span class="date">{{item.data}}</span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+          <h1 style="text-align:center;margin-top: 30px;width: 100%">文章列表</h1>
+          <el-row :span="8" v-for="(item,index) in currentPageData" :key="index">
+            <i class="el-icon-delete" style="float: right;margin-left: 3%;cursor:pointer" @click="delete_data(item.id_id)" v-show="login_flag===false"></i>
+            <i class="el-icon-bottom" style="float: right;text-decoration: underline;cursor:pointer" @click="download(item.name)" v-show="login_flag===false"></i>
+            <el-card :body-style="{ padding: '5%' }" shadow="hover" style="width: auto;">
+                <a class="a_sty" @click="showBlogData(item.id_id)"><span @click="doClick(scope.row)" class="link">{{item.name}}</span></a>
+                <p class="p_sytl">{{item.count}}</p>
+                <el-tag>{{item.label}}</el-tag>
+                <span class="date">{{item.data}}</span>
+            </el-card>
+            <br>
+          </el-row>
       </main>
       <div class="block">
         <el-pagination
@@ -55,12 +55,16 @@
 </template>
 
 <script>
+import { Loading, Message } from 'element-ui'
 export default {
   name: 'main',
   components: {
   },
   data () {
     return {
+      dispa: true,
+      login_flag: this.$root.login_flag,
+      windowsss: document.body.clientWidth,
       productList: [], // 所有数据
       totalPage: 1, // 统共页数，默认为1
       currentPage: 1, // 当前页数 ，默认为1
@@ -73,16 +77,20 @@ export default {
   },
   methods: {
     get_blog_list () {
+      const loadingInstance = Loading.service({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        fullscreen: true
+      })
       const $this = this
       this.$http({ // 格式a
         method: 'get',
         url: this.$serverurl.list_blog
       }).then(function (res) {
         if (res.data === 'error') {
-          this.$message({
-            message: '请求失败：' + res.data,
-            type: 'warning'
-          })
+          Message.warning('请求失败：error')
         } else {
           $this.num_counr = res.data.count
           $this.productList = []
@@ -91,18 +99,18 @@ export default {
               name: res.data.data[i].name,
               count: res.data.data[i].count,
               id_id: res.data.data[i].id_id,
-              data: res.data.data[i].data
+              data: res.data.data[i].data,
+              label: res.data.data[i].label
             })
           }
+          loadingInstance.close()
           $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
           $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
           $this.setCurrentPageData()
         }
       }).catch(resp => {
-        this.$message({
-          message: '请求失败：' + resp.status + ',' + resp.statusText,
-          type: 'warning'
-        })
+        Message.warning('请求失败：error')
+        loadingInstance.close()
       })
     },
     get_label_list () {
@@ -111,7 +119,7 @@ export default {
         method: 'get',
         url: this.$serverurl.show_label
       }).then(function (res) {
-        $this.$root.label_data = res.data.data
+        // $this.$root.label_data = res.data.data
         $this.label_show_data = res.data.data
         // $this.setCurrentPageData()
       })
@@ -122,7 +130,7 @@ export default {
         method: 'get',
         url: this.$serverurl.show_file
       }).then(function (res) {
-        $this.$root.file_data = res.data.data
+        // $this.$root.file_data = res.data.data
         $this.flie_show_data = res.data.data
         // $this.setCurrentPageData()
       })
@@ -142,18 +150,24 @@ export default {
       )
     },
     showBlogData (blogId) {
+      const loadingInstance = Loading.service({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+        fullscreen: true
+      })
       const $this = this
       this.$http({ // 格式a
         method: 'get',
         url: this.$serverurl.show_blog + blogId
       }).then(function (res) {
         if (res.data === 'error') {
-          this.$message({
-            message: '请求失败：' + res.data,
-            type: 'warning'
-          })
+          Message.warning('请求失败：error')
         } else {
           $this.$root.blog_num = res.data
+          $this.$root.com_data = blogId
+          loadingInstance.close()
           $this.$router.push({ path: '/home/show' })
           window.scrollTo(0, 0)
         }
@@ -164,7 +178,7 @@ export default {
     },
     show_label (res) {
       const $this = this
-      const bale = res.split('---')[0]
+      const bale = res.split('(')[0]
       this.$http({ // 格式a
         method: 'post',
         data: { label: bale },
@@ -177,7 +191,8 @@ export default {
             name: res.data.data[i].name,
             count: res.data.data[i].count,
             id_id: res.data.data[i].id_id,
-            data: res.data.data[i].data
+            data: res.data.data[i].data,
+            label: res.data.data[i].label
           })
         }
         $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
@@ -189,7 +204,7 @@ export default {
       const $this = this
       this.$http({ // 格式a
         method: 'post',
-        data: { archive: res },
+        data: { archive: res.split('(')[0] },
         url: this.$serverurl.show_file
       }).then(function (res) {
         $this.productList = []
@@ -199,24 +214,63 @@ export default {
             name: res.data.data[i].name,
             count: res.data.data[i].count,
             id_id: res.data.data[i].id_id,
-            data: res.data.data[i].data
+            data: res.data.data[i].data,
+            label: res.data.data[i].label
           })
         }
         $this.totalPage = Math.ceil($this.productList.length / $this.pageSize)
         $this.totalPage = $this.totalPage === 0 ? 1 : $this.totalPage
         $this.setCurrentPageData()
       })
+    },
+    download (res) {
+      window.location.href = this.$serverurl.down_load + res + '.md'
+    },
+    delete_data (res) {
+      const $this = this
+      this.$http({ // 格式a
+        method: 'post',
+        data: { type_file: 'blog', file_id: res },
+        url: this.$serverurl.down_delete
+      }).then(function (res) {
+        if (res.data === 'error') {
+          Message.warning('请求失败：error')
+        } else {
+          $this.get_blog_list()
+          $this.get_label_list()
+          $this.get_file_list()
+          Message.success('删除成功')
+        }
+      })
     }
   },
   mounted: function () {
+    this.dispa = document.body.clientWidth >= 650
     this.get_blog_list()
     this.get_label_list()
     this.get_file_list()
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        that.windowsss = window.screenWidth
+      })()
+    }
+  },
+  watch: {
+    windowsss (val) {
+      this.dispa = val >= 650
+    }
   }
 }
 </script>
 
 <style>
+  .el-container {
+    position: fixed;
+    left:0.5em;
+    margin-top:10px;
+  }
   .date {
     position: relative;
     font-family: "SF Pro Display",Roboto,Noto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
@@ -224,7 +278,8 @@ export default {
     line-height: 1.57142857;
     color: #333;
     min-height: 100%;
-    padding-left: 36px;
+    /*padding-left: 36px;*/
+    float:right
   }
   .p_sytl {
     font-size: 14px;
@@ -235,42 +290,60 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    padding-left: 72px;
+    padding-left: 5%;
   }
   .a_sty {
     text-decoration: none;
     display: block;
-    padding-left: 36px;
+    /*padding-left: 36px;*/
     word-break: break-all;
     color: #222226;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 20px;
+    /*line-height: 20px;*/
     font-weight: 500;
     cursor:pointer
   }
   .name_style {
-    position: relative;
-    padding: 16px 24px 12px 24px;
-    border-bottom: 1px solid #0d0e0e;
+    /*position: relative;*/
   }
   .wrap {
-    background-color: rgba(251, 252, 251, 0.8);
+    background-color: rgba(251, 252, 251, 0);
     margin-left: 25%;
     position: relative;
     width: 70%;
     margin-top: 3%;
     min-height: 550px;
+    /*border-color: #0d0e0e;*/
+    /*border: 3px solid #95afee;*/
+    /*border-radius: 8px;*/
+  }
+  .wrap2 {
+    background-color: rgba(251, 252, 251, 0);
+    margin-left: 10%;
+    position: relative;
+    width: 80%;
+    margin-top: 3%;
+    min-height: 550px;
+    /*border-color: #0d0e0e;*/
+    /*border: 3px solid #95afee;*/
+    /*border-radius: 8px;*/
   }
   .block {
-    margin-left: 200px;
+    /*margin-left: 200px;*/
+    text-align: center;
     position: relative;
-  }
-  .el-card__body {
-    height: 100%;
+    background-color: rgba(251, 252, 251, 0.5);
+    border-radius: 10px;
   }
   .link:hover {
     color: #409EFF;
+  }
+  .el-card__body {
+    background-color: rgba(251, 252, 251, 0.5) !important;
+  }
+  .el-card {
+    background-color: rgba(251, 252, 251, 0) !important;
   }
 </style>

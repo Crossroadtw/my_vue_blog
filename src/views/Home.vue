@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <el-carousel height="600px" ref="carousel" @click.native="linkTo">
+    <el-carousel ref="carousel" @click.native="linkTo" style="height: 400px">
       <el-carousel-item class="carousel-item" v-for="item in picture_list" v-bind:key="item.url">
         <img class="carousel-img" :src="item">
       </el-carousel-item>
     </el-carousel>
+    <h1 style="color: yellow;position: relative;margin-top: 10%">欢迎光临小站！</h1>
   </div>
 </template>
 
@@ -28,17 +29,29 @@ export default {
 }
 </script>
 <style>
-  .carousel-item {
+  .home {
     width: 100%;
-    height: 100%;
-    background: white;
-    display: flex;
+    text-align: center;
+  }
+  .carousel-item {
+    margin-top: 3%;
+    max-width: 100%;
+    max-height: 100%;
+    /*width: auto;*/
+    height: auto;
+    /*background: white;*/
+    /*display: flex;*/
     justify-content: center;
   }
   .carousel-img {
     max-width: 100%;
     max-height: 100%;
-    min-height: 100%;
-    min-width: 100%;
+    width: auto;
+    /*height: auto;*/
+    min-height: 50%;
+    min-width: 50%;
+  }
+  .carousel-inner img {
+    width:100%;
   }
 </style>

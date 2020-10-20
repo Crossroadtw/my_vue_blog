@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 var ws = ''
 export default {
   name: 'Chat_Co',
@@ -36,10 +37,7 @@ export default {
       document.getElementById('disconnet').disabled = 0
       document.getElementById('send_btn').disabled = 0
       if ('WebSocket' in window) {
-        this.$message({
-          message: '您的浏览器支持 WebSocket!',
-          type: 'success'
-        })
+        Message.success('您的浏览器支持 WebSocket!')
         ws.onopen = function (data) {
           ws.send('连接成功')
         }
@@ -56,20 +54,14 @@ export default {
         }
       } else {
         // 浏览器不支持 WebSocket
-        this.$message({
-          message: '您的浏览器不支持 WebSocket!',
-          type: 'error'
-        })
+        Message.error('您的浏览器不支持 WebSocket!')
       }
     },
     send_web () {
       // eslint-disable-next-line camelcase
       var sen_data = document.getElementById('send')
       if (sen_data.value === '') {
-        this.$message({
-          message: '数据为空，发送失败。。',
-          type: 'warning'
-        })
+        Message.warning('数据为空，发送失败。。')
       } else {
         ws.send(sen_data.value)
         sen_data.value = ''
@@ -88,20 +80,25 @@ export default {
 <style>
 .Chat_Co {
   min-height: 550px;
-  height: auto;
+  height: 100%;
+  max-height: 100%;
   width: auto;
-  text-align:center
+  text-align:center;
+  position: relative;
 }
 
 #up {
+  margin-top: 10%;
   text-align: left;
   min-height: 400px;
-  height: auto;
+  height: 70%;
+  /*max-height: 60%;*/
   max-width: 60%;
   margin-left: 20%;
   border: 1px solid #b41756;
   background: #f3f0f0;
   OVERFLOW-Y: auto;
+  /*position: relative;*/
 }
 
 #send {

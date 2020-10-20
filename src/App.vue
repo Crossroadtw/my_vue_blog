@@ -1,27 +1,25 @@
 <template>
-  <div id="app">
-    <div id="login" v-on:mousedown.left="createLoves($event)" v-on:mouseup="removeSmallHert">
-      <Banner ref="Banner" class="ban_max"></Banner>
+  <div id="app" v-on:mousedown.left="createLoves($event)" v-on:mouseup="removeSmallHert">
+    <Banner ref="Banner" class="ban_max"></Banner>
+    <div id="login">
       <vue-particles
-        color="#dedede"
+        color="#eeb9c4"
         :particleOpacity="0.7"
-        :particlesNumber="80"
+        :particlesNumber="100"
         shapeType="star"
         :particleSize="4"
-        linesColor="#FFFFFF"
-        :linesWidth="2"
+        linesColor="#f3e174"
+        :linesWidth="1"
         :lineLinked="true"
         :lineOpacity="0.4"
         :linesDistance="150"
         :moveSpeed="3"
-        :hoverEffect="true"
-        hoverMode="grab"
-        :clickEffect="true"
-        clickMode="push"></vue-particles>
+        :hoverEffect="false"
+        :clickEffect="false"></vue-particles>
     </div>
     <NHeader></NHeader>
     <router-view class="home_sty"></router-view>
-    <Footer style="position:relative;"></Footer>
+    <Footer></Footer>
   </div>
 </template>
 <script>
@@ -47,7 +45,12 @@ export default {
 </script>
 <style>
   .ban_max {
-    width: auto;
+    /*width: auto;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
   }
   #login{
     position: fixed;
@@ -61,12 +64,12 @@ export default {
      height: auto;
      max-width: 100%;
      min-height: 100%;
-     /*min-height: 550px;*/
-     position: relative;
+     /*position: relative;*/
    }
   html, body, #app{
     min-height: 100%;
     height: 100%;
+    /*background: linear-gradient(#eeb9c4, #f3e174);*/
   }
   ::-webkit-scrollbar {
     width: 0;

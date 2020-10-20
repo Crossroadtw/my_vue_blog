@@ -1,14 +1,8 @@
 <template>
   <div class="footer">
-    <ul :underline="false">
-      <li :underline="false">关于我们</li>
-      <li>联系我们</li>
-      <li>商务合作</li>
-      <li>帮助中心</li>
-      <li>意见反馈</li>
-      <li>新手指南</li>
-    </ul>
-    <p>Copyright © 124.70.44.128版权所有 | 京ICP无备案号</p>
+    <el-divider></el-divider>
+    <p style="position: relative;width: auto;height: auto;">Copyright © 124.70.44.128版权所有 | 京ICP无备案号</p>
+    <p style="position: relative;width: auto;height: auto">Powered by .NET Core on Kubernetes</p>
   </div>
 </template>
 
@@ -20,34 +14,13 @@ export default {
 
 <style scoped>
   .footer {
-    width: 100%;
-    min-height: 128px;
-    height: auto;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.4)
-  }
-
-  .footer ul {
-    margin: 0 auto 16px;
-    padding-top: 38px;
     width: auto;
+    min-height: 20px;
     height: auto;
-  }
-
-  .footer ul li {
-    float: left;
-    width: 112px;
-    margin: 0 10px;
     text-align: center;
-    font-size: 14px;
+    color: #030303;
+    background-color: rgba(246, 246, 246, 0);
   }
-
-  .footer ul::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-
   .footer p {
     text-align: center;
     font-size: 12px;

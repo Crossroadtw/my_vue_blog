@@ -1,4 +1,5 @@
 module.exports = {
+  productionSourceMap: false,
   configureWebpack: config => {
     config.module.rules.push({
       // 处理markdown文件
