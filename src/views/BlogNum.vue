@@ -1,7 +1,8 @@
 <template>
   <div class="main">
     <el-row class="main" type="flex" justify="center">
-      <el-col style="max-width: 90%;width: auto;min-width: 66%">
+<!--      <el-col style="max-width: 90%;width: auto;min-width: 66%">-->
+      <el-col :class="[{'window_1':dispa},{'window_2':dispa===false}]">
         <div style="padding: 3% 0">
         <div class="mark_styl" v-html="compiledMarkdown"></div>
         </div>
@@ -105,6 +106,7 @@ export default {
   },
   data () {
     return {
+      dispa: true,
       content: this.$root.blog_num,
       comment: {
         span_name: '',
@@ -259,10 +261,12 @@ export default {
       this.span_name = 12
       this.span_com = 22
       this.span_ti = 2
+      this.dispa = true
     } else {
       this.span_name = 24
       this.span_com = 20
       this.span_ti = 4
+      this.dispa = false
     }
     this.get_comment_list(1)
   }
@@ -318,6 +322,12 @@ export default {
   }
   .el-card.is-always-shadow {
     background-color: rgba(0, 0, 0, 0)
+  }
+  .window_1 {
+    width: 66%;
+  }
+  .window_2 {
+    width: 90%;
   }
 
 </style>

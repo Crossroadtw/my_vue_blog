@@ -1,5 +1,5 @@
 <template>
-  <div class="Chat_Co">
+  <div class="Code_C">
     <div style="width: 66%;margin-left: 17%;position: relative;margin-top: 2%;height: 20%">
         <codemirror
           ref="mycode"
@@ -78,8 +78,9 @@ export default {
 </script>
 
 <style scoped>
-.Chat_Co {
+.Code_C {
   width: 100%;
   height: 100%;
+  /*text-align: center;*/
 }
 </style>

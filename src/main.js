@@ -11,7 +11,9 @@ import serverurl from './assets/js/param'
 import VueParticles from 'vue-particles'
 import VueCodeMirror from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
+import infiniteScroll from 'vue-infinite-scroll'
 Vue.use(VueParticles)
+Vue.use(infiniteScroll)
 Vue.use(VueCodeMirror)
 Vue.use(Pagination)
 Vue.use(Popover)

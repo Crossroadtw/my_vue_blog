@@ -5,7 +5,8 @@
         <h3 class="title"><i class="el-icon-star-on"></i>{{about.aboutMe}}</h3>
         <div class="statement">
           <div class="item">精通C/C++、Python、Vue</div>
-          <div class="item">座右铭：熟悉就是精通，了解就是掌握。</div>
+          <div class="item">前座右铭：熟悉就是精通，了解就是掌握。</div>
+          <div class="item">座右铭：菜鸡一个，大佬带带我。</div>
         </div>
         <div class="statement">
           <div class="item">Email：tw958658@163.com</div>
@@ -25,9 +26,10 @@
               <a target="_blank" href="https://github.com/Crossroadtw"><img class="icon" src="../assets/image/1.jpg" alt="码云" /></a>
             </dd>
             <dt>{{about.technology}}</dt>
-            <dd>Vue、Vue组件、Element-ui、Python(各种包)、Django(依赖)、SQL、NoSQL、部署</dd>
+            <dd>Vue、Vue组件、Element-ui、Python(各种包)、Django(依赖)、Flask(依赖)、SQL、NoSQL、部署</dd>
             <dt>{{about.other}}</dt>
             <dd>前端刚开始，学习中。。。</dd>
+            <dd>现在没学了，偶尔会看看，工作中暂时用不到</dd>
           </dl>
         </el-card>
         <h3 class="title"><i class="el-icon-star-on"></i>{{about.contactMe}}</h3>

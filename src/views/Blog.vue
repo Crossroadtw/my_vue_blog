@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="Blog">
     <el-container style="width: 24%;height: 70%;flex-direction: column;margin-top: 0;overflow: auto" v-show="dispa">
         <el-card class="box-card" style="width: auto;max-height: 50%;overflow: auto;height: auto">
           <div slot="header" class="clearfix">
@@ -8,7 +8,7 @@
           <div v-for="(item,index) in label_show_data" :key="index">
             <p @click="show_label(item)" style="cursor: pointer;">
               <span style="color: blue">{{index+1}}、</span>
-              <span @click="doClick(scope.row)" class="link">{{item}}</span>
+              <span  class="link">{{item}}</span>
             </p>
           </div>
         </el-card>
@@ -19,14 +19,14 @@
         <div v-for="(item,index) in flie_show_data" :key="index">
           <p @click="show_file_d(item)" style="cursor: pointer;">
             <span style="color: blue">{{index+1}}、</span>
-            <span @click="doClick(scope.row)" class="link">{{item}}</span>
+            <span class="link">{{item}}</span>
           </p>
         </div>
       </el-card>
     </el-container>
     <div :class="[{'wrap':dispa},{'wrap2':dispa===false}]" style="margin-right: 30px">
       <span @click="get_blog_list()" style="cursor: pointer;margin-left: 3%;">
-        <span @click="doClick(scope.row)" class="link" style="margin-top: 3%"><i style="color: blue;" class="el-icon-reading"></i>显示全部</span>
+        <span class="link" style="margin-top: 3%"><i style="color: blue;" class="el-icon-reading"></i>显示全部</span>
       </span>
       <main>
           <h1 style="text-align:center;margin-top: 30px;width: 100%">文章列表</h1>
@@ -34,7 +34,7 @@
             <i class="el-icon-delete" style="float: right;margin-left: 3%;cursor:pointer" @click="delete_data(item.id_id)" v-show="login_flag===false"></i>
             <i class="el-icon-bottom" style="float: right;text-decoration: underline;cursor:pointer" @click="download(item.name)" v-show="login_flag===false"></i>
             <el-card :body-style="{ padding: '5%' }" shadow="hover" style="width: auto;">
-                <a class="a_sty" @click="showBlogData(item.id_id)"><span @click="doClick(scope.row)" class="link">{{item.name}}</span></a>
+                <a class="a_sty" @click="showBlogData(item.id_id)"><span class="link">{{item.name}}</span></a>
                 <p class="p_sytl">{{item.count}}</p>
                 <el-tag>{{item.label}}</el-tag>
                 <span class="date">{{item.data}}</span>
@@ -57,7 +57,7 @@
 <script>
 import { Loading, Message } from 'element-ui'
 export default {
-  name: 'main',
+  name: 'Blog',
   components: {
   },
   data () {

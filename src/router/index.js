@@ -56,6 +56,12 @@ const routes = [
     component: resolve => require(['@/views/Code_C'], resolve)
   },
   {
+    path: '/informal_essay',
+    name: 'informal_essay',
+    // component: Login
+    component: resolve => require(['@/views/Record'], resolve)
+  },
+  {
     path: '/language',
     name: 'language',
     // component: Login

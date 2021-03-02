@@ -24,7 +24,7 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col span="24">
+              <el-col :span="24">
                 <el-form-item label="内容" prop="content" class="name_label">
                   <el-input :rows="10" type="textarea" placeholder="请输入评论内容" v-model="comment.content"></el-input>
                 </el-form-item>
@@ -104,14 +104,14 @@ export default {
   data () {
     return {
       imgUrl: require('@/assets/image/s.gif'),
+      span_name: 0,
+      num_counr: 0,
+      span_ti: 0,
+      span_com: 0,
       comment: {
-        span_name: '',
-        span_ti: '',
-        span_com: '',
         name: '',
         email: '',
-        content: '',
-        num_counr: ''
+        content: ''
       },
       login_flag: this.$root.login_flag,
       comment_list: [],

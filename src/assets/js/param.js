@@ -30,6 +30,7 @@ module.exports = {
   comment_message: serverUrl + 'leaving_message/', // 留言接口
   reply: serverUrl + 'reply/', // 留言回复接口
   language: serverUrl + 'language/', // 翻译接口
+  informal_essay: 'http://124.70.44.128:8887/informal_essay/', // 随笔接口
   // ws_socket: 'ws://124.70.44.128:8989/ws_co/'
   ws_socket: 'ws://124.70.44.128:8080/ws_co/' // 及时通讯
 }

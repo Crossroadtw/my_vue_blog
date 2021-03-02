@@ -17,10 +17,11 @@
         <el-menu-item index="2-1" @click="jump('/chat')"><i class="el-icon-s-comment"></i>简易聊天室</el-menu-item>
         <el-menu-item index="2-2" @click="jump('/language')"><i class="el-icon-connection"></i>无情翻译</el-menu-item>
         <el-menu-item index="2-3" @click="jump('/code')"><i class="el-icon-tickets"></i>在线运行(PY)</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">小工具2</template>
-          <el-menu-item index="2-4-1">小工具2-1</el-menu-item>
-        </el-submenu>
+        <el-menu-item index="2-4" @click="jump('/informal_essay')"><i class="el-icon-edit-outline"></i>生活随笔</el-menu-item>
+<!--        <el-submenu index="2-4">-->
+<!--          <template slot="title">小工具2</template>-->
+<!--          <el-menu-item index="2-4-1">小工具2-1</el-menu-item>-->
+<!--        </el-submenu>-->
       </el-submenu>
       <el-menu-item index="5" @click="jump('/message')"><i class="el-icon-s-comment"></i>留言板</el-menu-item>
       <el-popover
@@ -56,6 +57,7 @@
           <el-menu-item index="1-5-1" @click="jump('/chat')"><i class="el-icon-s-comment"></i>简易聊天室</el-menu-item>
           <el-menu-item index="1-5-2" @click="jump('/language')"><i class="el-icon-connection"></i>无情翻译</el-menu-item>
           <el-menu-item index="1-5-3" @click="jump('/code')"><i class="el-icon-tickets"></i>在线运行(PY)</el-menu-item>
+          <el-menu-item index="1-5-4" @click="jump('/informal_essay')"><i class="el-icon-edit-outline"></i>生活随笔</el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-popover

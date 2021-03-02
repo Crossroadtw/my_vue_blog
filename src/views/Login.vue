@@ -13,7 +13,7 @@
             popper-class="my-autocomplete"
             v-model="state"
             :fetch-suggestions="querySearch"
-            hide-loading = 'true'
+            :hide-loading = "true"
             placeholder="简体中文"
             @select="handleSelect"
             clearable>
